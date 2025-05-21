@@ -1,0 +1,25 @@
+
+#python 3.12.9
+# copy pip cmd to install
+pip install sqlalchemy == 2.0.40
+pip install psycopg2-binary == 2.9.10
+# pip install mysqlclient      # Nếu bạn dùng MySQL
+# pip install pyodbc 
+
+pip install python-dotenv == 1.1.0
+pip install python-jose == 3.4.0 
+pip install passlib == 1.7.4
+pip install email-validator == 2.2.0
+pip install bcrypt==3.1.1
+
+pip install langchain
+pip install qdrant-client
+
+# If you choose "local" for EMBEDDING_MODEL_TYPE in rag_config.py
+pip install sentence-transformers ==4.1.0
+# If you choose "huggingface" for EMBEDDING_MODEL_TYPE in rag_config.py
+pip install transformers == 4.51.3
+pip install torch == 2.7.0
+pip install langchain-community
+pip install -U langchain-huggingface
+pip install 'uvicorn[standard]'
