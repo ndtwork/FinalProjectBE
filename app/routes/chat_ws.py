@@ -39,6 +39,14 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)
             # Sử dụng RAGPipelineLoader để xử lý câu hỏi
             result = rag_pipeline_loader.rag(source="qdrant", question=data)
             answer = result['result']
+
+            source_documents = result.get('source_documents', [])
+
+            print("\n--- Source Documents ---")
+            for doc in source_documents:
+                print(doc)
+            print("------------------------\n")
+
             await manager.send_personal_message(f"You asked: {data}\nAssistant: {answer}", websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)

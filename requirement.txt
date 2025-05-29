@@ -23,3 +23,5 @@ pip install torch == 2.7.0
 pip install langchain-community
 pip install -U langchain-huggingface
 pip install 'uvicorn[standard]'
+
+pip install pypdf markdown docx2txt
