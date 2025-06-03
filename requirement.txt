@@ -13,7 +13,7 @@ pip install email-validator==2.2.0
 pip install bcrypt==3.1.1
 
 pip install langchain==0.3.25
-pip install qdrant-client
+pip install qdrant-client==1.14.2
 
 # If you choose "local" for EMBEDDING_MODEL_TYPE in rag_config.py
 pip install sentence-transformers==4.1.0
@@ -26,3 +26,5 @@ pip install 'uvicorn[standard]'
 
 pip install pypdf markdown docx2txt
 pip install langchain-document-loaders
+
+pip install --upgrade langchain pypdf markdown

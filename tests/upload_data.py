@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import VectorParams, Distance, PointStruct
 
-from langchain.document_loaders import TextLoader, MarkdownLoader, PyPDFLoader
+from langchain.document_loaders import TextLoader, UnstructuredMarkdownLoader, PyPDFLoader
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -19,7 +20,7 @@ load_dotenv(dotenv_path=project_root / ".env")
 
 QDRANT_URL          = os.getenv("QDRANT_URL")
 QDRANT_API_KEY      = os.getenv("QDRANT_API_KEY")
-COLLECTION_NAME     = os.getenv("QDRANT_COLLECTION_NAME", "quy_che_full")
+COLLECTION_NAME     = "quy_che_full" #os.getenv("quy_che_full")
 EMBEDDING_MODEL_NAME= os.getenv("LOCAL_EMBEDDING_MODEL_NAME")
 CHUNK_SIZE          = int(os.getenv("CHUNK_SIZE", 800))
 CHUNK_OVERLAP       = int(os.getenv("CHUNK_OVERLAP", 400))
@@ -32,14 +33,16 @@ client = QdrantClient(
 )
 
 # Nếu collection chưa tồn tại, tạo mới
-if not client.collections_api.exists(collection_name=COLLECTION_NAME):
+try:
+    client.get_collection(collection_name=COLLECTION_NAME)
+    print(f"[INFO] Collection `{COLLECTION_NAME}` đã tồn tại.")
+except Exception:
     client.create_collection(
         collection_name=COLLECTION_NAME,
-        vectors_config=VectorParams(size=128, distance=Distance.COSINE)
+        vectors_config=VectorParams(size=768, distance=Distance.COSINE)
     )
-    print(f"[INFO] Đã tạo mới collection `{COLLECTION_NAME}` trên Qdrant.")
-else:
-    print(f"[INFO] Collection `{COLLECTION_NAME}` đã tồn tại, sẽ upsert thêm dữ liệu.")
+    print(f"[INFO] Đã tạo mới collection `{COLLECTION_NAME}`")
+
 
 # ---- 3. Khởi tạo Embedder (dùng HuggingFaceEmbeddings thay cho SentenceTransformerEmbeddings) ----
 # Nếu trước đây bạn dùng SentenceTransformerEmbeddings(model_name=EMBEDDING_MODEL_NAME),
@@ -70,17 +73,17 @@ def upload_document_to_qdrant(
     # 4.1. Chọn loader dựa trên đuôi file
     ext = Path(file_path).suffix.lower()
     if ext == ".txt":
-        loader = TextLoader()
+        loader = TextLoader(file_path=file_path)
     elif ext == ".md":
-        loader = MarkdownLoader()
+        loader = UnstructuredMarkdownLoader(file_path=file_path)
     elif ext == ".pdf":
-        loader = PyPDFLoader()
+        loader = PyPDFLoader(file_path=file_path)
     else:
         print(f"[WARN] Loại file {ext} chưa hỗ trợ: bỏ qua {file_path}")
         return
 
     # 4.2. Load toàn bộ Document từ file
-    documents = loader.load(file_path=file_path)
+    documents = loader.load()
 
     # 4.3. Chia thành chunks
     chunks = text_splitter.split_documents(documents)
