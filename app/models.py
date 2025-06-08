@@ -76,3 +76,26 @@ class RelatedIssue(Base):
     qdrant_id = Column(String, nullable=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+class Conversation(Base):
+    __tablename__ = "conversations"
+    id         = Column(Integer, primary_key=True)
+    user_id    = Column(Integer, ForeignKey("users.id"), nullable=False)
+    title      = Column(String(255), nullable=True)             # bạn có thể cho user đặt tên
+    created_at = Column(DateTime, default=func.now())
+
+    user = relationship("User", back_populates="conversations")
+    chats = relationship("ChatHistory", back_populates="conversation", cascade="all, delete")
+
+class ChatHistory(Base):
+    __tablename__ = "chat_history"
+    id              = Column(Integer, primary_key=True)
+    user_id         = Column(Integer, ForeignKey("users.id"), nullable=False)
+    conversation_id = Column(Integer, ForeignKey("conversations.id"), nullable=False)  # — THÊM FK
+    timestamp       = Column(DateTime, default=func.now())
+    question        = Column(Text, nullable=False)
+    answer          = Column(Text, nullable=False)
+    rag_context     = Column(Text, nullable=True)
+
+    user = relationship("User", back_populates="chats")
+    conversation = relationship("Conversation", back_populates="chats")  # — THÊM quan hệ

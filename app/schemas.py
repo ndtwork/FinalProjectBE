@@ -27,3 +27,15 @@ class LoginRequest(BaseModel):
 
 # Có thể bạn sẽ cần thêm các Pydantic model cho Regulation, FAQ, và RelatedIssue sau này
 # để định nghĩa cấu trúc dữ liệu cho request và response liên quan đến chúng
+
+from datetime import datetime
+from typing import Optional
+class ChatHistoryOut(BaseModel):
+    id: int
+    timestamp: datetime
+    question: str
+    answer: str
+    rag_context: Optional[str]
+    class Config:
+        orm_mode = True
+

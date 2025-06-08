@@ -1,11 +1,16 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
+# app/routes/chat_ws.py
+
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException, status
+from app.models import ChatHistory, Conversation   # — THÊM Conversation
 from sqlalchemy.orm import Session
 from app.config.database import get_db
-from app.pipelines.rag_pipeline import RAGPipelineLoader  # Import RAGPipelineLoader
+from app.models import ChatHistory
+from app.utils.security import get_current_user
+from app.pipelines.rag_pipeline import RAGPipelineLoader
 from typing import List
 
 router = APIRouter()
-rag_pipeline_loader = RAGPipelineLoader()  # Khởi tạo RAGPipelineLoader
+rag_pipeline_loader = RAGPipelineLoader()
 
 class ConnectionManager:
     def __init__(self):
@@ -29,24 +34,49 @@ manager = ConnectionManager()
 
 @router.websocket("/ws/chat")
 async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(get_db)):
+    # 1. Lấy token từ query param
     token = websocket.query_params.get("token")
-    print(f"Received token: {token}")  # In để kiểm tra token
+    if not token:
+        # Đóng kết nối nếu không có token
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+        return
 
+    # 2. Xác thực token và lấy current_user
+    try:
+        current_user = get_current_user(token=token, db=db)
+    except HTTPException:
+        # Nếu token không hợp lệ hoặc user không tìm thấy
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+        return
+
+    # 3. Kết nối WebSocket
     await manager.connect(websocket)
+
     try:
         while True:
+            # 4. Nhận câu hỏi từ client
             data = await websocket.receive_text()
-            # Sử dụng RAGPipelineLoader để xử lý câu hỏi
+
+            # 5. Xử lý RAG query
             result = rag_pipeline_loader.rag(source="qdrant", question=data)
-            answer = result['result']
+            answer = result.get("result", "")
+            source_documents = result.get("source_documents", [])
 
-            source_documents = result.get('source_documents', [])
+            # 6. Lưu vào ChatHistory
+            chat = ChatHistory(
+                user_id=current_user.id,
+                question=data,
+                answer=answer,
+                rag_context="\n\n".join(d.page_content for d in source_documents)
+            )
+            db.add(chat)
+            db.commit()
 
-            print("\n--- Source Documents ---")
-            for doc in source_documents:
-                print(doc)
-            print("------------------------\n")
+            # 7. Gửi lại kết quả cho client
+            await manager.send_personal_message(
+                f"You asked: {data}\nAssistant: {answer}",
+                websocket
+            )
 
-            await manager.send_personal_message(f"You asked: {data}\nAssistant: {answer}", websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
