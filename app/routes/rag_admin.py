@@ -4,6 +4,9 @@ from pathlib import Path
 import shutil, uuid
 from app.utils.rag_utils import client, create_collection, delete_collection, ingest_file
 
+from app.config.rag_config import QDRANT_COLLECTION_NAME  # default nếu muốn
+from app.utils.settings import get_active_collection, set_active_collection
+
 router = APIRouter(tags=["admin"], prefix="/admin")
 
 @router.post("/collections")
@@ -51,3 +54,20 @@ async def api_ingest(
         tmp_fp.unlink()
 
     return {"message": f"File `{file.filename}` ingested into collection `{name}`"}
+
+
+@router.get("/settings/active_collection")
+async def api_get_active_collection():
+    name = get_active_collection() or QDRANT_COLLECTION_NAME
+    return {"active_collection": name}
+
+@router.put("/settings/active_collection")
+async def api_set_active_collection(
+    name: str = Form(..., description="Tên collection admin muốn active")
+):
+    # Kiểm tra xem collection có tồn tại không
+    existing = [c.name for c in client.get_collections().collections]
+    if name not in existing:
+        raise HTTPException(404, detail=f"Collection `{name}` not found")
+    set_active_collection(name)
+    return {"message": f"Active collection set to `{name}`"}
