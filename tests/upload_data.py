@@ -13,6 +13,8 @@ from langchain.document_loaders import TextLoader, UnstructuredMarkdownLoader, P
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
+import time  # <- thêm import time để đo thời gian
+
 
 # ---- 1. Load biến môi trường từ file .env ----
 project_root = Path(__file__).resolve().parent.parent
@@ -20,10 +22,10 @@ load_dotenv(dotenv_path=project_root / ".env")
 
 QDRANT_URL          = os.getenv("QDRANT_URL")
 QDRANT_API_KEY      = os.getenv("QDRANT_API_KEY")
-COLLECTION_NAME     = "quy_che_full" #os.getenv("quy_che_full")
+COLLECTION_NAME     = "800v200" #os.getenv("quy_che_full")
 EMBEDDING_MODEL_NAME= os.getenv("LOCAL_EMBEDDING_MODEL_NAME")
-CHUNK_SIZE          = int(os.getenv("CHUNK_SIZE", 800))
-CHUNK_OVERLAP       = int(os.getenv("CHUNK_OVERLAP", 400))
+CHUNK_SIZE          =  1000 #int(os.getenv("CHUNK_SIZE", 800))
+CHUNK_OVERLAP       =  100 #int(os.getenv("CHUNK_OVERLAP", 400))
 
 # ---- 2. Khởi tạo QdrantClient & tạo (nếu chưa có) collection ----
 client = QdrantClient(
@@ -86,10 +88,14 @@ def upload_document_to_qdrant(
     documents = loader.load()
 
     # 4.3. Chia thành chunks
+    start_split = time.time()  # BẮT ĐẦU đo thời gian tách chunk
     chunks = text_splitter.split_documents(documents)
+    t_split = time.time() - start_split  # KẾT THÚC đo
+    print(f"[METRIC] Tách {len(chunks)} chunk mất {t_split:.4f} s")  # IN kết quả đo
 
     # 4.4. Chuẩn bị list PointStruct để upsert
     points = []
+    start_embed = time.time()  # BẮT ĐẦU đo thời gian tính embedding
     for chunk in chunks:
         vector = embeddings_model.embed_query(chunk.page_content)
         points.append(
@@ -105,12 +111,18 @@ def upload_document_to_qdrant(
                 }
             )
         )
+    t_embed = time.time() - start_embed  # KẾT THÚC đo
+    print(f"[METRIC] Tính embedding cho {len(chunks)} chunk mất {t_embed:.4f} s")  # IN kết quả đo
 
     # 4.5. Upsert lên Qdrant
+    start_upsert = time.time()  # BẮT ĐẦU đo thời gian upsert
     client.upsert(
         collection_name=collection_name,
         points=points
     )
+    t_upsert = time.time() - start_upsert  # KẾT THÚC đo
+    print(f"[METRIC] Upsert {len(points)} chunk mất {t_upsert:.4f} s")  # IN kết quả đo
+
     print(f"[OK] Đã upsert {len(points)} chunks từ `{Path(file_path).name}` vào `{collection_name}`.")
 
 if __name__ == "__main__":

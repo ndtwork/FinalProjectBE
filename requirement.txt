@@ -28,3 +28,4 @@ pip install pypdf markdown docx2txt
 pip install langchain-document-loaders
 
 pip install --upgrade langchain pypdf markdown
+pip install python-multipart
