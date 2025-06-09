@@ -1,4 +1,8 @@
+# app/schemas.py
+
 from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from typing import Optional, List
 
 class UserBase(BaseModel):
     username: str
@@ -12,30 +16,36 @@ class User(UserBase):
     role: str
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
 class TokenData(BaseModel):
-    username: str
+    username: Optional[str] = None
 
 class LoginRequest(BaseModel):
     username: str
     password: str
 
-# Có thể bạn sẽ cần thêm các Pydantic model cho Regulation, FAQ, và RelatedIssue sau này
-# để định nghĩa cấu trúc dữ liệu cho request và response liên quan đến chúng
+# --- Conversation schema để list/create/xóa conversations ---
+class ConversationOut(BaseModel):
+    id: int
+    title: Optional[str]
+    created_at: datetime
 
-from datetime import datetime
-from typing import Optional
+    class Config:
+        orm_mode = True
+
+# --- ChatHistory schema để trả về messages trong conversation ---
 class ChatHistoryOut(BaseModel):
     id: int
+    conversation_id: int
     timestamp: datetime
     question: str
     answer: str
     rag_context: Optional[str]
+
     class Config:
         orm_mode = True
-
