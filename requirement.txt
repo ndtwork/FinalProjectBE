@@ -28,3 +28,7 @@ pip install pypdf markdown docx2txt
 pip install langchain-document-loaders
 
 pip install --upgrade langchain pypdf markdown
+pip install python-multipart
+
+pip install --index-url https://download.pytorch.org/whl/cu121 torch==2.2.2+cu121 torchvision==0.17.2+cu121 torchaudio==2.2.2+cu121
+

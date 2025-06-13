@@ -1,0 +1,20 @@
+{"id": 1,  "question": "Sinh viên chương trình chuẩn cần đạt bậc tiếng Anh nào để được xét tốt nghiệp?",               "gold_ids": [], "doc_type": "Regulation"}
+{"id": 2,  "question": "Muốn miễn học phần tiếng Anh, sinh viên phải nộp giấy tờ gì?",                               "gold_ids": [], "doc_type": "Regulation"}
+{"id": 3,  "question": "IELTS bao nhiêu tương đương bậc 3.1 trong bảng quy đổi?",                                     "gold_ids": [], "doc_type": "Regulation"}
+{"id": 4,  "question": "Chứng chỉ tiếng Anh có giá trị công nhận trong bao lâu?",                                     "gold_ids": [], "doc_type": "Regulation"}
+{"id": 5,  "question": "Sinh viên Elitech phải đạt bậc tiếng Anh nào trước khi làm ĐATN?",                            "gold_ids": [], "doc_type": "Regulation"}
+{"id": 6,  "question": "Tại ĐHBK, một tín chỉ tương đương bao nhiêu giờ học tập?",                                    "gold_ids": [], "doc_type": "Regulation"}
+{"id": 7,  "question": "Thang điểm chữ A, B, C được quy đổi sang thang 4 như thế nào?",                               "gold_ids": [], "doc_type": "Regulation"}
+{"id": 8,  "question": "Điều kiện giao đề tài đồ án tốt nghiệp đại học là gì?",                                       "gold_ids": [], "doc_type": "Regulation"}
+{"id": 9,  "question": "Sinh viên được đăng ký tối đa bao nhiêu tín chỉ trong một học kỳ chính?",                     "gold_ids": [], "doc_type": "Regulation"}
+{"id": 10, "question": "Khi nào sinh viên bị cảnh báo học tập mức 3?",                                                 "gold_ids": [], "doc_type": "Regulation"}
+{"id": 11, "question": "Bao nhiêu tín chỉ tối đa được công nhận khi chuyển từ chương trình khác sang HUST?",         "gold_ids": [], "doc_type": "Regulation"}
+{"id": 12, "question": "Điều kiện miễn thi cuối kỳ là gì?",                                                           "gold_ids": [], "doc_type": "Regulation"}
+{"id": 13, "question": "CPA tối thiểu để xét tốt nghiệp bậc cử nhân là bao nhiêu?",                                   "gold_ids": [], "doc_type": "Regulation"}
+{"id": 14, "question": "Xếp hạng tốt nghiệp 'Giỏi' yêu cầu CPA trong khoảng nào?",                                     "gold_ids": [], "doc_type": "Regulation"}
+{"id": 15, "question": "Điểm học phần I khác điểm X như thế nào?",                                                     "gold_ids": [], "doc_type": "Regulation"}
+{"id": 16, "question": "Sinh viên có thể nghỉ học tạm thời tối đa bao nhiêu học kỳ chính?",                           "gold_ids": [], "doc_type": "Regulation"}
+{"id": 17, "question": "Điều kiện chuyển chương trình đào tạo sau năm thứ nhất là gì?",                               "gold_ids": [], "doc_type": "Regulation"}
+{"id": 18, "question": "Thực tập tốt nghiệp kỹ sư tối thiểu kéo dài bao nhiêu tuần?",                                 "gold_ids": [], "doc_type": "Regulation"}
+{"id": 19, "question": "Sinh viên cử nhân được học vượt tối đa bao nhiêu TC trong học kỳ hè?",                        "gold_ids": [], "doc_type": "Regulation"}
+{"id": 20, "question": "Quy chế 2023 có hiệu lực từ ngày nào?",                                                        "gold_ids": [], "doc_type": "Regulation"}
