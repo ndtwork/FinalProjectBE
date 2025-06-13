@@ -22,15 +22,16 @@ load_dotenv(dotenv_path=project_root / ".env")
 
 QDRANT_URL          = os.getenv("QDRANT_URL")
 QDRANT_API_KEY      = os.getenv("QDRANT_API_KEY")
-COLLECTION_NAME     = "800v200" #os.getenv("quy_che_full")
+COLLECTION_NAME     = "400v200" #os.getenv("quy_che_full")
 EMBEDDING_MODEL_NAME= os.getenv("LOCAL_EMBEDDING_MODEL_NAME")
-CHUNK_SIZE          =  1000 #int(os.getenv("CHUNK_SIZE", 800))
-CHUNK_OVERLAP       =  100 #int(os.getenv("CHUNK_OVERLAP", 400))
+CHUNK_SIZE          =  400 #int(os.getenv("CHUNK_SIZE", 800))
+CHUNK_OVERLAP       =  200 #int(os.getenv("CHUNK_OVERLAP", 400))
 
 # ---- 2. Khởi tạo QdrantClient & tạo (nếu chưa có) collection ----
 client = QdrantClient(
     url=QDRANT_URL,
     api_key=QDRANT_API_KEY,
+    timeout = 60.0,
     prefer_grpc=False  # hoặc True nếu bạn ưu tiên gRPC
 )
 
