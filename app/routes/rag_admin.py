@@ -2,7 +2,7 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
 from pathlib import Path
 import shutil, uuid
-from app.utils.rag_utils import client, create_collection, delete_collection, ingest_file
+from app.pipelines.upload_pipeline import client, create_collection, delete_collection, ingest_file
 
 from app.config.rag_config import QDRANT_COLLECTION_NAME  # default nếu muốn
 from app.utils.settings import get_active_collection, set_active_collection
