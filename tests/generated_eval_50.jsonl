@@ -1,0 +1,20 @@
+{"question": "Thời gian học một tín chỉ là gì?", "gold_contents": ["Một tín chỉ tương đương với 15 tiết lý thuyết, 30-45 tiết thực hành hoặc 45-90 giờ tự học."]}
+{"question": "Nội dung chính của đoạn sau là gì: \"Sinh viên cần tích lũy đủ số tín chỉ quy định...\"?", "gold_contents": ["Sinh viên cần tích lũy đủ số tín chỉ quy định mới được xét tốt nghiệp."]}
+{"question": "Điều kiện miễn học phần là gì?", "gold_contents": ["Sinh viên có thể được miễn học phần nếu có chứng chỉ tương đương được công nhận."]}
+{"question": "Chứng chỉ tiếng Anh có thời hạn bao lâu?", "gold_contents": ["Chứng chỉ tiếng Anh quốc tế thường có hiệu lực trong vòng 2 năm."]}
+{"question": "CPA tối thiểu để xét tốt nghiệp là bao nhiêu?", "gold_contents": ["CPA tối thiểu để xét tốt nghiệp bậc cử nhân là 2.0."]}
+{"question": "Sinh viên được nghỉ học tạm thời bao nhiêu học kỳ?", "gold_contents": ["Sinh viên được phép nghỉ học tạm thời tối đa 4 học kỳ chính trong toàn khóa học."]}
+{"question": "Điều kiện đăng ký đồ án tốt nghiệp là gì?", "gold_contents": ["Sinh viên phải hoàn thành ít nhất 100 tín chỉ và không bị cảnh báo học tập để được đăng ký đồ án tốt nghiệp."]}
+{"question": "Sinh viên có thể đăng ký tối đa bao nhiêu tín chỉ mỗi học kỳ?", "gold_contents": ["Sinh viên không bị cảnh báo học tập được đăng ký tối đa 24 tín chỉ trong một học kỳ chính."]}
+{"question": "Điều kiện để chuyển chương trình đào tạo là gì?", "gold_contents": ["Sinh viên hoàn thành năm nhất, không bị cảnh báo học tập hoặc kỷ luật, và có nguyện vọng chuyển chương trình đào tạo sẽ được xét duyệt."]}
+{"question": "Thực tập tốt nghiệp kéo dài bao lâu?", "gold_contents": ["Thực tập tốt nghiệp kỹ sư tối thiểu kéo dài 6 tuần."]}
+{"question": "Sinh viên cần làm gì để được miễn thi cuối kỳ?", "gold_contents": ["Sinh viên được miễn thi cuối kỳ nếu đạt yêu cầu về điểm quá trình theo quy định của học phần."]}
+{"question": "Điểm học phần I và X khác nhau như thế nào?", "gold_contents": ["Điểm I là điểm tạm thời do chưa hoàn thành học phần vì lý do chính đáng. Điểm X là điểm chưa xác định do chưa đủ thành phần đánh giá."]}
+{"question": "Điều kiện xếp loại tốt nghiệp giỏi là gì?", "gold_contents": ["CPA từ 3.2 đến dưới 3.6 được xếp loại Giỏi."]}
+{"question": "Bao nhiêu tín chỉ được công nhận khi chuyển từ chương trình khác sang HUST?", "gold_contents": ["Tối đa 63 tín chỉ được công nhận khi chuyển từ chương trình khác sang HUST."]}
+{"question": "Học phần tiếng Anh được miễn khi nào?", "gold_contents": ["Sinh viên có thể được miễn học phần tiếng Anh nếu có chứng chỉ quốc tế hợp lệ."]}
+{"question": "Sinh viên chương trình Elitech cần đạt bậc tiếng Anh nào để làm ĐATN?", "gold_contents": ["Sinh viên chương trình Elitech phải đạt chuẩn tiếng Anh bậc 3.2 trở lên trước khi làm ĐATN."]}
+{"question": "Khi nào sinh viên bị cảnh báo học tập mức 3?", "gold_contents": ["Sinh viên bị cảnh báo học tập mức 3 khi số tín chỉ nợ vượt quá 24 tín chỉ tính đến đầu mỗi học kỳ."]}
+{"question": "Một học kỳ chính gồm bao nhiêu tuần học?", "gold_contents": ["Một học kỳ chính thường kéo dài khoảng 15 tuần học."]}
+{"question": "Kỳ hè có bị xét cảnh báo học tập không?", "gold_contents": ["Không xét cảnh báo học tập với học kỳ hè."]}
+{"question": "Sinh viên có thể học vượt bao nhiêu tín chỉ trong kỳ hè?", "gold_contents": ["Sinh viên được học vượt tối đa 12 tín chỉ trong học kỳ hè."]}
