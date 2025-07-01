@@ -97,18 +97,16 @@ class RAGPipelineLoader:
 
     def load_prompt_template(self):
         tpl = (
-            "Bạn là trợ lý RAG, phải dựa 100 % vào NGỮ CẢNH bên dưới.\n"
-            "• Nếu NGỮ CẢNH KHÔNG chứa đáp án, trả lời: "
-            "\"Không tìm thấy thông tin trong tài liệu.\".\n"
-            "• Nếu có đáp án, trả lời đủ thông tin, đưa cả nguồn vào, chính xác, tiếng Việt;  "
-            " suy luận theo số liệu , không dược bịa đặt\n"
-            "• Cuối cùng in dòng: \"Nguồn: {source}\".\n"
+            "1. Sử dụng các đoạn ngữ cảnh sau để trả lời câu hỏi cuối cùng.\n"
+            "2. Nếu không biết câu trả lời, hãy trả lời: \"Tôi không biết\" và không bịa.\n"
+            "3. Trả lời chi tiết, rõ ràng, và bằng tiếng Việt.\n"
             "\n"
-            "NGỮ CẢNH:\n{context}\n"
-            "Câu hỏi: {question}\n"
+            "{context}\n"
+            "\n"
+            "Câu hỏi: {question}\n\n"
             "Trả lời:"
         )
-        return PromptTemplate(template=tpl, input_variables=["context", "question", "source"])
+        return PromptTemplate(template=tpl, input_variables=["context", "question"])
 
     def _retrieve_chunks(self, query_vector, doc_type: str, k: int = 3):
         filt = models.Filter(must=[

@@ -14,7 +14,7 @@ from app.config.rag_config import (
 )
 
 # 1. Khởi client
-client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY,  timeout=120)
 
 # 2. TextSplitter & Embedder
 text_splitter = RecursiveCharacterTextSplitter(

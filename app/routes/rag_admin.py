@@ -45,6 +45,8 @@ async def api_ingest(
     document_type: str = Form(...),
     file: UploadFile = File(...)
 ):
+    import traceback
+
     tmp_dir = Path("tmp_upload")
     tmp_dir.mkdir(exist_ok=True)
     tmp_fp = tmp_dir / f"{uuid.uuid4()}_{file.filename}"
@@ -54,11 +56,18 @@ async def api_ingest(
     try:
         ingest_file(tmp_fp, document_type, name)
     except Exception as e:
+        print("===== Ingest ERROR =====")
+        print(traceback.format_exc())
+        print("========================")
         raise HTTPException(status_code=400, detail=f"Ingest error: {e}")
     finally:
-        tmp_fp.unlink()
+        try:
+            tmp_fp.unlink()
+        except Exception as cleanup_e:
+            print(f"Could not delete temp file {tmp_fp}: {cleanup_e}")
 
     return {"message": f"File `{file.filename}` ingested into collection `{name}`"}
+
 
 
 @router.get("/settings/active_collection")
